@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Web Technology 2021</title>
+        <title><%= title %> </title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,8 +12,17 @@
     <body>
         <%- include('partials/header') %>
 
-        <main>Main content</main>
-
+        <main>
+            Main content
+            <ul>
+                <% items.forEach((item) => { %>
+                    <li>
+                        <b><%= item.name %></b>
+                    </li>
+                <% }); %> 
+            </ul>
+        </main>
+        
         <%- include('partials/footer') %>
     </body>
 </html>
