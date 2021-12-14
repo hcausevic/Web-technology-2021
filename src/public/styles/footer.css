@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     font-size: 0.9rem;
+    background-color: aliceblue;
 }
 
 .footer_about-link:hover {

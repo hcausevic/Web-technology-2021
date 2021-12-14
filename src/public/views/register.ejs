@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %> </title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="../styles/register.css">
+    <link rel="stylesheet" type="text/css" href="../styles/index.css">
+    <script type="text/javascript" src="../js/register.js" ></script>
+</head>
+<body>
+<%- include('partials/header') %>
+
+<main class="main-content register-wrapper">
+    <div id="error" class="alert alert-danger" role="alert" hidden></div>
+
+    <form onsubmit="signUp(event)" class="form-group form-register">
+        <label for="username">Username</label>
+        <div class="form-register__username mb-3">
+            <input id="username" name="username" type="text" required placeholder="Required Field"
+                   class="form-register__username-input form-control">
+            <img src="../../icons/user.png" class="form-register__username-icon" alt="avatar">
+        </div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required placeholder="Required Field" class="form-control mb-3">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required placeholder="Required Field" class="form-control mb-5">
+        <button type="submit" class="btn btn-primary form-register__btn-submit">SIGN UP</button>
+    </form>
+</main>
+
+<%- include('partials/footer') %>
+</body>
+</html>
