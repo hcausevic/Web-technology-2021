@@ -1,6 +1,8 @@
 export const getHome = (req, res) => {
     const data = {
         title: 'Web Technology 2021',
+        search: true,
+        username: '',
         items: [
             {
                 name: 'item 1',

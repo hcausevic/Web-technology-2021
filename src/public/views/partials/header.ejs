@@ -1,3 +1,31 @@
-<header>
-    Header
+<link rel="stylesheet" type="text/css" href="../../styles/header.css" />
+<script type="text/javascript" src="../../js/header.js" ></script>
+
+<header class="header">
+    <div class="header__home">
+        <a class="header__link header__link--large" href="/">HOME</a>
+    </div>
+    <% if (search) { %>
+        <div class="header__search">
+            <img class="header__search-icon" src="../../icons/search.png">
+            <input class="header__search-input" type="text" placeholder="Search...">
+        </div>
+    <% } %>
+    <div class="header__links">
+        <ul class="header__links-list">
+            <li><a class="header__link" href="/questions">ASK A QUESTION</a></li>
+            <% if (!username) { %>
+                <li><a class="header__link" href="/login">LOG IN</a></li>
+                <li><a class="header__link" href="/signup">SIGN UP</a></li>
+            <% } %>
+            <% if (username) { %>
+                <li class="header__username">
+                    <div class="header__username-icon-container">
+                        <img class="header__username-icon" src="../../icons//user.png">
+                    </div>
+                    <div class="header__username-text"><%= username %> </div>
+                </li>
+            <% } %>
+        </ul>
+    </div>
 </header>
