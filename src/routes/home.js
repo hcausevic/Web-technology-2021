@@ -2,6 +2,7 @@ export const getHome = (req, res) => {
     const data = {
         title: 'Web Technology 2021',
         search: true,
+        askQuestionVisible: true,
         username: '',
         items: [
             {

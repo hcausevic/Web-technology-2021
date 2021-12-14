@@ -13,7 +13,9 @@
     <% } %>
     <div class="header__links">
         <ul class="header__links-list">
-            <li><a class="header__link" href="/questions">ASK A QUESTION</a></li>
+            <% if (askQuestionVisible) { %>
+                <li><a class="header__link" href="/questions">ASK A QUESTION</a></li>
+            <% } %>
             <% if (!username) { %>
                 <li><a class="header__link" href="/login">LOG IN</a></li>
                 <li><a class="header__link" href="/signup">SIGN UP</a></li>

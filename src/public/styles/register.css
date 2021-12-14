@@ -1,0 +1,83 @@
+.register-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #007bff;
+}
+
+.form-control {
+    border-radius: 1rem;
+    border-color: powderblue;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: powderblue;
+    opacity: 1; /* Firefox */
+    font-size: 0.8rem;
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: powderblue;
+    font-size: 0.8rem;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: powderblue;
+    font-size: 0.8rem;
+}
+
+.form-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.form-register__btn-submit {
+    width: 8rem;
+    align-self: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.form-register__username {
+    text-align: center;
+    border-radius: 1rem;
+    background-color: white;
+    display: flex;
+    background-clip: padding-box;
+    border: 1px solid powderblue;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-register__username-icon {
+    transform: scale(.5)
+}
+
+.form-register__username-input {
+    width: 100%;
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+}
+
+.form-register__username-input:focus {
+    border:none;
+    box-shadow: none;
+}
+
+.form-register__username:focus-within {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+#error {
+    width: 25%;
+    font-size: 0.8rem;
+}
