@@ -6,8 +6,6 @@ export const getRegister = (req, res) => {
     const data = {
         title: 'Web Technology 2021',
         search: false,
-        askQuestionVisible: false,
-        username: '',
     }
     res.render('../public/views/register.ejs', data);
 };
@@ -27,10 +25,10 @@ export const postRegister = (req, res) => {
     const existingEmail = Object.values(users).find(user => user.email === email);
 
     if (existingUsername != null) {
-        return res.status(409).send('User with that username already exists!')
+        return res.status(409).send('User with that username already exists!');
     }
     if (existingEmail != null) {
-        return res.status(409).send('User with that email already exists!')
+        return res.status(409).send('User with that email already exists!');
     }
 
     // create user
@@ -46,11 +44,11 @@ export const postRegister = (req, res) => {
         fs.writeFileSync(filePath, JSON.stringify(users));
 
     } catch (err) {
-        return res.status(500).send('Server error. Please try again later.')
+        return res.status(500).send('Server error. Please try again later.');
     }
 
     // create session token
     const token = encrypt(JSON.stringify(newUser));
 
-    res.status(201).json({token: token.content})
+    res.status(201).json(token);
 };

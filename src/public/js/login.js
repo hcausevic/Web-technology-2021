@@ -1,10 +1,10 @@
-const signUp = (event) => {
+const signIn = (event) => {
     event.preventDefault();
 
     const errorEl = document.getElementById('error');
     errorEl.hidden = true;
     errorEl.innerText = '';
-    fetch('/register', {
+    fetch('/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -12,11 +12,10 @@ const signUp = (event) => {
         },
         body: JSON.stringify({
             username: event.target[0].value,
-            email: event.target[1].value,
-            password: event.target[2].value
+            password: event.target[1].value
         })
     }).then(res => {
-        if (res.status === 201) {
+        if (res.status === 200) {
             res.json()
                 .then((token) => {
                     localStorage.setItem('token', token.content);
