@@ -1,15 +1,6 @@
 window.onload = (event) => {
     if (localStorage.getItem('token') && localStorage.getItem('iv')) {
-        fetch('/user/me', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                token: {content: localStorage.getItem('token'), iv: localStorage.getItem('iv')}
-            })
-        }).then(res => {
+        auth().then(res => {
             if (res.status === 200) {
                 // user logged in
                 res.json().then(user => {
