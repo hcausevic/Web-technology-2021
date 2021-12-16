@@ -6,10 +6,12 @@ window.onload = (event) => {
                 res.json().then(user => {
                     showFields();
                     document.getElementById('username').innerText = user.username;
+                    redirectToHome();
                 })
             } else {
                 // user logged out
                 hideFields();
+                localStorage.clear();
             }
         })
     } else {
@@ -22,6 +24,13 @@ window.onload = (event) => {
 logout = () => {
     localStorage.clear();
     window.location.replace('/login');
+}
+
+redirectToHome = () => {
+    // prevent access to login and register page for logged in users
+    if (window.location.pathname === '/login' || window.location.pathname === '/register') {
+        window.location.replace('/');
+    }
 }
 
 showFields = () => {
