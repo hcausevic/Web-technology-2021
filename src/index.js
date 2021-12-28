@@ -8,7 +8,7 @@ import { getHome } from './routes/home.js';
 import { getRegister, postRegister } from './routes/register.js';
 import { getUsername } from './routes/authenticate.js';
 import { getLogin, postLogin } from './routes/login.js';
-import { getQuestion } from './routes/question.js';
+import { getNewQuestionForm, getQuestion, postQuestion } from './routes/question.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,6 +31,8 @@ app.post('/user/me', getUsername);
 app.get('/login', getLogin);
 app.post('/login', postLogin);
 app.get('/questions/:id', getQuestion);
+app.get('/new', getNewQuestionForm);
+app.post('/new', postQuestion);
 
 app.listen(port, () => {
     console.log(`Application is listening on port ${port}`)
