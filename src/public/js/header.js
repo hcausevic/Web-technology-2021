@@ -27,7 +27,7 @@ logout = () => {
 }
 
 redirectToHome = () => {
-    // prevent access to login and register page for logged in users
+    // prevent access to login, register and new page for certain users
     if (window.location.pathname === '/login' || window.location.pathname === '/register') {
         window.location.replace('/');
     }
