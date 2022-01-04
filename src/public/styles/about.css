@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 88vh;
+    flex-direction: column;
+}
+
+.container > p {
+    font-size: 1rem;
+}
