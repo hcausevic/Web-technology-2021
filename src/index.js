@@ -11,12 +11,14 @@ import { getHome } from './routes/home.js';
 import { getRegister, postRegister } from './routes/register.js';
 import { getUsername } from './routes/authenticate.js';
 import { getLogin, postLogin } from './routes/login.js';
-import { getQuestion } from './routes/question.js';
 import { getSearch } from './routes/search.js';
 import { paginate } from './middleware/paginate.js';
 import { auth } from './middleware/auth.js';
 import { getLike, putLike } from './routes/like.js';
 import { postAnswer } from './routes/answer.js';
+import { getNewQuestionForm, getQuestion, postQuestion } from './routes/question.js';
+import { getAbout } from "./routes/about.js";
+import { getError } from "./routes/error.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,9 +30,14 @@ const pathToPublic = path.join(__dirname, 'public');
 const questionsFilePath = path.join(__dirname, 'database', 'questions.json');
 const answersFilePath = path.join(__dirname, 'database', 'answers.json');
 const usersFilePath = path.join(__dirname, 'database', 'users.json');
+const entitiesPath = path.join(process.cwd(), 'entities.json');
+const wordMapperPath = path.join(process.cwd(), 'wv.json');
+
 export const QUESTIONS = JSON.parse(fs.readFileSync(questionsFilePath, 'utf8'));
 export const ANSWERS = JSON.parse(fs.readFileSync(answersFilePath, 'utf8'));
 export const USERS = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+export const ENTITIES = JSON.parse(fs.readFileSync(entitiesPath, 'utf8'));
+export const WORD_MAPPER = JSON.parse(fs.readFileSync(wordMapperPath, 'utf8'));
 
 app.use(express.static(pathToPublic));
 app.use(express.json());
@@ -50,6 +57,10 @@ app.put('/like', auth(), putLike);
 app.get('/like', auth(), getLike);
 app.get('/search', getSearch);
 app.post('/answer', auth(), postAnswer);
+app.get('/new', getNewQuestionForm);
+app.post('/new', auth(), postQuestion);
+app.get('/about', getAbout);
+app.get('*', getError);
 
 const server = app.listen(port, () => {
     console.log(COLOR_BLUE, `Application is listening on port ${port}`)
@@ -61,5 +72,6 @@ process.on('SIGINT', () => {
         fs.writeFileSync(questionsFilePath, JSON.stringify(QUESTIONS));
         fs.writeFileSync(answersFilePath, JSON.stringify(ANSWERS));
         fs.writeFileSync(usersFilePath, JSON.stringify(USERS));
+        fs.writeFileSync(entitiesPath, JSON.stringify(ENTITIES));
     });
 });

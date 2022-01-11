@@ -29,5 +29,8 @@ const signIn = (event) => {
                     errorEl.hidden = false;
                 });
         }
-    })
+    }).catch(err => {
+        errorEl.innerText = err;
+        errorEl.hidden = false;
+    });
 }
