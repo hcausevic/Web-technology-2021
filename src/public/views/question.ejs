@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= title %> </title>
+        <title>Web Technology 2021</title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,66 +18,27 @@
         <main class="content">
             <div class="content__main">
                 <hr>
-                <div class="content__question-container">
-                    <div class="content__question-header">
-                        <div class="content__question-header-title"><%= question.Title %></div>
-                        <div class="content__question-header-asked"><%= question.CreationDate %> </div>
-                    </div>
-                    <div class="content__question-body">
-                        <%- question.Body %> 
-                    </div>
-                    <div class="content__question-footer">
-                        <div class="question-footer_username-container">
-                            <div class="question-footer_username-icon">
-                                <img src="../icons/user-white.png" alt="avatar">
-                            </div>
-                            <div class="question-footer_username">
-                                <%= username %> 
-                            </div>
-                        </div>
-                        <div class="question-footer__heart">
-                            <%= question.Score %> 
-                            <img src="../icons/heart-fill.png" alt="heart" >
-                        </div>
-                    </div>
-                </div>
+                <%- include('partials/question-card', {
+                    data: question
+                }) %> 
+
                 <form class="content__question-form" onsubmit="onPostAnswer(event)">
-                    <textarea class="form-control question-form__textarea"></textarea>
-                    <button type="submit" class="btn btn-primary question-form__button">POST ANSWER</button>
+                    <textarea id="answer-textarea" class="form-control question-form__textarea" disabled></textarea>
+                    <button id="answer-submit" type="submit" class="btn btn-primary question-form__button" disabled>
+                        POST ANSWER
+                    </button>
                 </form>
+
                 <% for (let i = 0; i < answers.length; i++) { %>
-                    <div class="content__answer-card">
-                        <div class="content__answer-header">
-                            <div class="question-footer_username-container">
-                                <div class="question-footer_username-icon">
-                                    <img src="../icons/user-white.png" alt="avatar">
-                                </div>
-                                <div class="question-footer_username">
-                                    Username
-                                </div>
-                                <div class="question-footer__time">
-                                    <%= answers[i].CreationDate %> 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content__answer-body">
-                            <%- answers[i].Body %>
-                        </div>
-                        <div class="content_answer__footer">
-                            <%= answers[i].Score %> 
-                            <img src="../icons/heart-fill.png" alt="heart" >
-                        </div>
-                    </div>
+                    <%- include('partials/answer-card', {
+                        data: answers[i]
+                    }) %>
                 <% } %>
             </div>
             <div class="content__side">
                 <hr>
-                <div class="content__related-container">
-                    <div class="content__related-title">Related</div>
-                    <ul class="content__related-items">
-                        <li id="1" class="content__item" onclick="onRelatedItemClick(event)">This question is somehow related to the selected one</li>
-                        <li id="2" class="content__item" onclick="onRelatedItemClick(event)">Hardcoded relative</li>
-                    </ul>
+                <div id="related-items-container" class="content__related-container">
+                    <!-- children will be added dynamically on page load -->
                 </div>
             </div>
         </main>

@@ -1,28 +1,16 @@
-import path from "path";
-import fs from "fs";
-import {encrypt, hash} from "../utils/crypto.js";
+import { encrypt, hash } from '../utils/crypto.js';
+import { USERS } from '../index.js';
 
 export const getLogin = (req, res) => {
     const data = {
-        title: 'Web Technology 2021',
         search: false,
     }
     res.render('../public/views/login.ejs', data);
 };
 
 export const postLogin = (req, res) => {
-    const {username, password} = req.body;
-
-    const filePath = path.join('src', 'database', 'users.json');
-    let users = {};
-
-    // try to find the user
-    try {
-        users = JSON.parse(fs.readFileSync(filePath, {encoding: 'utf-8'}));
-    } catch (err) {
-        return res.status(500).send('Server error. Please try again later.')
-    }
-    const user = Object.values(users)
+    const { username, password } = req.body;
+    const user = Object.values(USERS)
         .find(user => user.username === username && user.password === hash(password, 'md5'));
 
     if (user != null) {

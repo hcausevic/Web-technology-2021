@@ -4,9 +4,9 @@
   "description": "Web technology project 2021",
   "main": "index.js",
   "scripts": {
+    "prestart": "node src/background.js",
     "start": "node src/index.js",
-    "start-dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "nodemon src/index.js"
   },
   "type": "module",
   "author": "",
