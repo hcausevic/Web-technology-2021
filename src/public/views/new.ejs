@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Technology 2021</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="../styles/print.css">
+    <link rel="stylesheet" type="text/css" href="../styles/new.css">
+    <script type="text/javascript" src="../js/auth.js" ></script>
+    <script type="text/javascript" src="../js/new.js" ></script>
+</head>
+
+<body>
+<%- include('partials/header') %>
+
+<main class="content">
+    <hr>
+    <div id="error" class="alert alert-danger" role="alert" hidden></div>
+    <div id="success" class="alert alert-success" role="alert" hidden>
+        Your question was posted successfully!
+        You will be redirected to the home page.
+    </div>
+
+    <form class="content__question-container" onsubmit="onQuestionPost(event)">
+        <div class="mb-3">
+            <label for="title">Question title</label>
+            <p>Be specific and imagine you're asking a person this question</p>
+            <input type="text" id="title" name="title" required class="form-control">
+        </div>
+        <div class="content__question-body mb-3">
+            <label for="body">Question body</label>
+            <p>Include all the information someone would need to answer your question</p>
+            <textarea id="body" name="body" required rows="10" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary content__btn-submit">Post question</button>
+    </form>
+</main>
+
+<%- include('partials/footer') %>
+</body>
+</html>
