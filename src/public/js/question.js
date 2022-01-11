@@ -11,6 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = window.location.pathname.split('/').pop();
     const q = new URLSearchParams(window.location.search).get('q');
 
+    const answerTextarea = document.getElementById('answer-textarea');
+    const answerSubmit = document.getElementById('answer-submit');
+
+    auth().then(res => {
+        if (res.status === 200) {
+            answerTextarea.disabled = false;
+            answerSubmit.disabled = false;
+        } else {
+            answerTextarea.disabled = true;
+            answerSubmit.disabled = true;
+            answerTextarea.style.cursor = 'not-allowed';
+            answerSubmit.style.cursor = 'not-allowed';
+        }
+    });
+
     fetch(`/search?docId=${id}&q=${q}`, {
         method: 'GET',
         headers: {

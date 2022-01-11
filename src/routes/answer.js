@@ -6,7 +6,7 @@ export const postAnswer = (req, res) => {
     const ParentId = req.body.parentId;
     const Body = req.body.answer;
     if (!ParentId || preprocessDoc(Body) === '') {
-        return res.status(400).json({ message: 'Bad Request!' });
+        return res.status(400).send('Bad Request!');
     }
 
     const id = generateUUID();

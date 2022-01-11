@@ -3,13 +3,13 @@ import { QUESTIONS, ANSWERS, USERS } from '../index.js';
 export const putLike = async (req, res) => {
     const { entityModel, operation, id } = req.body;
     if (!(['questions', 'answers'].includes(entityModel)) || !(['increment', 'decrement'].includes(operation)) ) {
-        return res.status(400).json({ message: 'Invalid request!' });
+        return res.status(400).send('Invalid request!');
     }
 
     const data = entityModel === 'questions' ? QUESTIONS : ANSWERS;
     const entity = data[id];
     if (!entity) {
-        return res.status(404).json({ message: 'Not found!' });
+        return res.status(404).send('Not found!');
     }
 
     const likeFn = operation === 'increment' ? (score) => ++score : (score) => --score;
