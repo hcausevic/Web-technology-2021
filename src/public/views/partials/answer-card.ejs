@@ -1,0 +1,26 @@
+<link rel="stylesheet" type="text/css" href="../../styles/answer-card.css">
+
+<div class="answer-card">
+    <div class="answer-card__header">
+        <div class="answer-card__username-container">
+            <div class="answer-card__username-icon">
+                <img src="../icons/user-white.png" alt="avatar">
+            </div>
+            <div class="answer-card__username">
+                <%= data.username %>
+            </div>
+        </div>
+        <div class="answer-card__time">
+            <%= data.CreationDate %> 
+        </div>
+    </div>
+    <div class="answer-card__body">
+        <%- data.Body %>
+    </div>
+    <div class="answer-card__footer-heart">
+        <span id="<%= `heart-answers-score-${data.id}` %>"><%- data.Score %></span> 
+        <img id="<%= `heart-answers-${data.id}` %>" class="heart-answer"
+             onclick="onHeartClick(event)" src="../icons/heart.svg" alt="heart" >
+    </div>
+    <div id="<%- data.id %>-error" class="alert alert-danger" role="alert" hidden></div>
+</div>

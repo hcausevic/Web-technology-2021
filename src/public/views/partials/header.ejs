@@ -9,18 +9,18 @@
     <% if (search) { %>
         <div class="header__search">
             <img class="header__search-icon" src="../../icons/search.png" alt="search">
-            <input class="header__search-input" type="text" placeholder="Search...">
+            <input id="search-input" class="header__search-input" type="text" placeholder="Search...">
         </div>
     <% } %>
     <div class="header__links">
         <ul class="header__links-list">
-            <li id="askQuestion"><a class="header__link" href="/new">ASK A QUESTION</a></li>
+            <li id="ask-question"><a class="header__link" href="/questions/new">ASK A QUESTION</a></li>
             <li id="login"><a class="header__link" href="/login">LOG IN</a></li>
             <li id="signup"><a class="header__link" href="/register">SIGN UP</a></li>
             <li id="logout"><button class="header__button" onclick="logout()">
                     <a class="header__link" href="#">SIGN OUT</a>
                 </button></li>
-            <li id="usernameContainer" class="header__username">
+            <li id="username-container" class="header__username">
                 <div class="header__username-icon-container">
                     <img class="header__username-icon" src="../../icons/user.png" alt="avatar">
                 </div>

@@ -1,0 +1,27 @@
+<link rel="stylesheet" type="text/css" href="../../styles/question-card.css">
+
+<div id="<%- data.id %> " class="question-card" onclick="onQuestionCardClick(event)">
+    <div class="question-card__header">
+        <div class="question-card__header-title"><%- data.Title %></div>
+        <div class="question-card__header-time"><%- data.CreationDate %></div>
+    </div>
+    <div class="question-card__body">
+        <%- data.Body %> 
+    </div>
+    <div class="question-card__footer">
+        <div class="question-card__username-container">
+            <div class="question-card__username-icon">
+                <img src="../icons/user-white.png" alt="avatar">
+            </div>
+            <div class="question-card__footer-username">
+                <%- data.username %> 
+            </div>
+        </div>
+        <div class="question-card__footer-heart" >
+            <span id="<%= `heart-questions-score-${data.id}` %>"><%- data.Score %></span>
+            <img id="<%= `heart-questions-${data.id}` %>" class="heart-question" onclick="onHeartClick(event)"
+                 src="../icons/heart.svg" alt="heart" >
+        </div>
+    </div>
+    <div id="<%- data.id %>-error" class="alert alert-danger" role="alert" hidden></div>
+</div>

@@ -1,55 +1,40 @@
-import fs from 'fs';
-import path from 'path';
-import {generateUUID} from "../utils/crypto.js";
-import {getUserFromToken} from "../utils/authenticate.js";
-
-export const getNewQuestionForm = (req, res) => {
-    const data = {
-        title: 'Web Technology 2021',
-        search: false,
-    }
-    res.render('../public/views/new.ejs', data);
-}
+import {ANSWERS, ENTITIES, QUESTIONS, USERS, WORD_MAPPER} from '../index.js';
+import {generateUUID} from '../utils/crypto.js';
+import {embeddings, preprocessDoc} from '../utils/text-process.js';
+import {formatDate} from '../utils/date.js';
 
 export const getQuestion = (req, res) => {
-    const {id} = req.params;
-    const filePath = path.join('src', 'database', 'questions.json');
-    let questions = {};
-    try {
-        questions = JSON.parse(fs.readFileSync(filePath, {encoding: 'utf-8'}));
-    } catch (err) {
-        return res.status(500).json({message: 'Server error.'});
+    const { id } = req.params;
+
+    if (!Object.keys(QUESTIONS).includes(id)) {
+        return res.status(404).render('../public/views/error.ejs', { search: false });
     }
 
-
-    if (!Object.keys(questions).includes(id)) {
-        //TODO; need to return error page when it gets created
-        return res.status(404).json({message: 'Not Found.'});
-    }
-
-    const question = {id, ...questions[id]};
-    const answersFilePath = path.join('src', 'database', 'answers.json');
-    let answers = {};
-    try {
-        answers = JSON.parse(fs.readFileSync(answersFilePath, {encoding: 'utf-8'}));
-    } catch (err) {
-        return res.status(500).json({message: 'Server error.'});
-    }
+    const username = USERS[QUESTIONS[id].OwnerUserId]?.username || `User with id: ${QUESTIONS[id].OwnerUserId}`;
+    const question = {
+        id,
+        ...QUESTIONS[id],
+        CreationDate: formatDate(QUESTIONS[id].CreationDate),
+        username,
+    };
 
     const relevantAnswers = [];
 
-    for (const [key, value] of Object.entries(answers)) {
+    for (const [key, value] of Object.entries(ANSWERS).reverse()) {
         if (value.ParentId === id) {
+            const answerUsername = USERS[value.OwnerUserId]?.username || `User with id: ${value.OwnerUserId}`
             relevantAnswers.push({
                 id: key,
-                ...value
+                ...value,
+                CreationDate: formatDate(value.CreationDate),
+                username: answerUsername,
             });
+
         }
     }
 
     const data = {
-        title: 'Web Technology 2021',
-        search: true,
+        search: false,
         username: '',
         question,
         answers: relevantAnswers,
@@ -58,37 +43,37 @@ export const getQuestion = (req, res) => {
 };
 
 export const postQuestion = (req, res) => {
-    const {token, title, body} = req.body;
-    const filePath = path.join('src', 'database', 'questions.json');
-    let questions = {};
+    const { title, body } = req.body;
+    const preprocessedTitle = preprocessDoc(title);
 
-    try {
-        questions = JSON.parse(fs.readFileSync(filePath, {encoding: 'utf-8'}));
-    } catch (err) {
-        return res.status(500).send('Server error');
+    if (!title.trim() || !preprocessDoc(body)) {
+        return res.status(400).send('Bad Request');
     }
 
-    const user = getUserFromToken(token);
-    if (user) {
+    if (res.userId) {
         // create question
         const question = {
-            OwnerUserId: user.id,
+            OwnerUserId: res.userId,
             CreationDate: new Date().toISOString(),
             Score: 0,
             Title: title,
             Body: body
         };
-        questions[generateUUID()] = question;
 
-        // save question
-        try {
-            fs.writeFileSync(filePath, JSON.stringify(questions));
-            res.status(201).json(question);
+        const questionId = generateUUID();
+        QUESTIONS[questionId] = question;
 
-        } catch (err) {
-            return res.status(500).send('Server error. Please try again later.');
-        }
+        ENTITIES[questionId] = embeddings(WORD_MAPPER, preprocessedTitle);
+
+        res.status(201).json(question);
     } else {
         return res.status(401).send('Token invalid!');
     }
+}
+
+export const getNewQuestionForm = (req, res) => {
+    const data = {
+        search: false,
+    }
+    res.render('../public/views/new.ejs', data);
 }
