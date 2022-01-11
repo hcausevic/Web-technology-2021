@@ -1,7 +1,6 @@
-
 window.onload = (event) => {
     if (localStorage.getItem('token') && localStorage.getItem('iv')) {
-        auth().then(res => {
+        getUsername().then(res => {
             if (res.status === 200) {
                 // user logged in
                 res.json().then(user => {
@@ -27,11 +26,8 @@ window.onload = (event) => {
             if (event.key === 'Enter') {
                 const query = searchInputElement.value;
 
-                // upon pressing enter we will return defaults for
-                // page and limit which are 1 and 10
-                const location = `?page=1&limit=10&q=${query}`;
-                window.location.href = location;
-
+                // upon pressing enter we will return defaults for page and limit which are 1 and 10
+                window.location.href = `?page=1&limit=10&q=${query}`;
                 searchInputElement.value = query;
             }
         });
@@ -44,26 +40,25 @@ const logout = () => {
 }
 
 const redirectToHome = () => {
-    // prevent access to login, register and new page for certain users
+    // prevent access to login, register and new page for logged in users
     if (window.location.pathname === '/login' || window.location.pathname === '/register') {
         window.location.replace('/');
     }
 }
 
 const showFields = () => {
-    document.getElementById('usernameContainer').hidden = false;
+    document.getElementById('username-container').hidden = false;
     document.getElementById('login').hidden = true;
     document.getElementById('signup').hidden = true;
-    document.getElementById('askQuestion').hidden = false;
+    document.getElementById('ask-question').hidden = false;
     document.getElementById('logout').hidden = false;
 }
 
 const hideFields = () => {
-    console.log('hide')
-    document.getElementById('usernameContainer').hidden = true;
+    document.getElementById('username-container').hidden = true;
     document.getElementById('login').hidden = false;
     document.getElementById('signup').hidden = false;
-    document.getElementById('askQuestion').hidden = true;
+    document.getElementById('ask-question').hidden = true;
     document.getElementById('logout').hidden = true;
 }
 
@@ -96,9 +91,9 @@ const onHeartClick = (event) => {
         if (res.status === 200) {
             const scoreElement = document.getElementById(`heart-${entityModel}-score-${id}`);
             if (liked) {
-                scoreElement.innerText = parseInt(scoreElement.innerText) - 1;
+                scoreElement.innerText = String(Number(scoreElement.innerText) - 1);
             } else {
-                scoreElement.innerText = parseInt(scoreElement.innerText) + 1;
+                scoreElement.innerText = String(Number(scoreElement.innerText) + 1);
             }
             event.target.classList.toggle('question-card--liked');
         } else if (res.status === 401) { // unauthorized

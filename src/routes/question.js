@@ -1,6 +1,7 @@
-import { QUESTIONS, ANSWERS, USERS, WORD_MAPPER, ENTITIES } from '../index.js';
-import { generateUUID } from '../utils/crypto.js';
-import { embeddings, preprocessDoc } from '../utils/text-process.js';
+import {ANSWERS, ENTITIES, QUESTIONS, USERS, WORD_MAPPER} from '../index.js';
+import {generateUUID} from '../utils/crypto.js';
+import {embeddings, preprocessDoc} from '../utils/text-process.js';
+import {formatDate} from '../utils/date.js';
 
 export const getQuestion = (req, res) => {
     const { id } = req.params;
@@ -9,12 +10,11 @@ export const getQuestion = (req, res) => {
         return res.status(404).render('../public/views/error.ejs', { search: false });
     }
 
-    const [date, time] = new Date(QUESTIONS[id].CreationDate).toLocaleString().split(', ');
     const username = USERS[QUESTIONS[id].OwnerUserId]?.username || `User with id: ${QUESTIONS[id].OwnerUserId}`;
     const question = {
         id,
         ...QUESTIONS[id],
-        CreationDate: `${time}, ${date}`,
+        CreationDate: formatDate(QUESTIONS[id].CreationDate),
         username,
     };
 
@@ -22,12 +22,11 @@ export const getQuestion = (req, res) => {
 
     for (const [key, value] of Object.entries(ANSWERS).reverse()) {
         if (value.ParentId === id) {
-            const [answerDate, answerTime] = new Date(value.CreationDate).toLocaleString().split(', ');
             const answerUsername = USERS[value.OwnerUserId]?.username || `User with id: ${value.OwnerUserId}`
             relevantAnswers.push({
                 id: key,
                 ...value,
-                CreationDate: `${answerTime}, ${answerDate}`,
+                CreationDate: formatDate(value.CreationDate),
                 username: answerUsername,
             });
 
@@ -64,8 +63,7 @@ export const postQuestion = (req, res) => {
         const questionId = generateUUID();
         QUESTIONS[questionId] = question;
 
-        const newVec = embeddings(WORD_MAPPER, preprocessedTitle);
-        ENTITIES[questionId] = newVec;
+        ENTITIES[questionId] = embeddings(WORD_MAPPER, preprocessedTitle);
 
         res.status(201).json(question);
     } else {

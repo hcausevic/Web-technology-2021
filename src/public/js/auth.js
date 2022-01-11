@@ -1,12 +1,13 @@
-auth = () => {
+getUsername = () => {
     return fetch('/user/me', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            token: {content: localStorage.getItem('token'), iv: localStorage.getItem('iv')}
-        })
+            'Content-Type': 'application/json',
+            'Token': JSON.stringify({
+                content: localStorage.getItem('token'),
+                iv: localStorage.getItem('iv')
+            })
+        }
     });
 }

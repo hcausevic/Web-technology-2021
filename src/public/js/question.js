@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerTextarea = document.getElementById('answer-textarea');
     const answerSubmit = document.getElementById('answer-submit');
 
-    auth().then(res => {
+    getUsername().then(res => {
         if (res.status === 200) {
             answerTextarea.disabled = false;
             answerSubmit.disabled = false;
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    fetch('/like', {
+    fetch('/likes', {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -106,6 +106,4 @@ const onPostAnswer = (e) => {
             window.location.reload();
         }
     });
-
-
 };

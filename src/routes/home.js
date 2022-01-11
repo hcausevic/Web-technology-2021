@@ -1,15 +1,15 @@
 import { USERS } from '../index.js';
+import { formatDate } from '../utils/date.js';
 
 export const getHome = async (req, res) => {
     const { previous, next, pagesNum, q } = await res.pagination;
     const questions = res.pagination.paginated;
 
     for (let i = 0, n = questions.length; i < n; i++) {
-        const [date, time] = new Date(questions[i].CreationDate).toLocaleString().split(', ');
         const authorName = USERS[questions[i].OwnerUserId]?.username;
         questions[i] = {
             ...questions[i],
-            CreationDate: `${time}, ${date}`,
+            CreationDate: formatDate(questions[i].CreationDate),
             username: authorName || `User with id: ${questions[i].OwnerUserId}`,
         };
     }
