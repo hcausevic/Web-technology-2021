@@ -6,6 +6,19 @@ export const putLike = async (req, res) => {
         return res.status(400).send('Invalid request!');
     }
 
+    const likedArray = entityModel === 'questions' ? 'likedQuestions' : 'likedAnswers'
+
+    // prevent double (dis)likes
+    if (USERS[res.userId][likedArray].includes(id)) {
+        if (operation === 'increment') {
+            return res.status(400).send('Bad request!');
+        }
+    } else {
+        if (operation === 'decrement') {
+            return res.status(400).send('Bad request!');
+        }
+    }
+
     const data = entityModel === 'questions' ? QUESTIONS : ANSWERS;
     const entity = data[id];
     if (!entity) {
@@ -19,21 +32,14 @@ export const putLike = async (req, res) => {
         Score: likeFn(entity.Score)
     };
 
-    if (operation === 'increment') {
-        entityModel === 'questions' ?
-            USERS[res.userId].likedQuestions.push(id) :
-            USERS[res.userId].likedAnswers.push(id);
-    } else {
-        entityModel === 'questions' ?
-            USERS[res.userId].likedQuestions =  USERS[res.userId].likedQuestions.filter(e => e != id): 
-            USERS[res.userId].likedAnswers = USERS[res.userId].likedAnswers.filter(e => e != id);
-    }
-    
+    operation === 'increment' ?
+        USERS[res.userId][likedArray].push(id) :
+        USERS[res.userId][likedArray] = USERS[res.userId][likedArray].filter(e => e !== id);
 
     return res.status(200).json({ id, score: data[id].Score });
 }
 
-export const getLike = async (req, res) => {
+export const getLikes = async (req, res) => {
     const { likedQuestions, likedAnswers } = USERS[res.userId];
     return res.status(200).json({
         questions: likedQuestions,

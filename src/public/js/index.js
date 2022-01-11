@@ -18,7 +18,7 @@ if (pageInputElement) {
         }
     });
 
-// protecting page number from invalid values
+    // protecting page number from invalid values
     pageInputElement.addEventListener('change', event => {
         const { min, max, value } = event.target;
         const intValue = parseInt(value);
@@ -32,7 +32,7 @@ if (pageInputElement) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const relevantElements = document.getElementsByClassName('heart-question');
-    fetch('/like', {
+    fetch('/likes', {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',

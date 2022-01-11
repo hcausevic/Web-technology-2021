@@ -27,7 +27,9 @@
                 <div class="pagination justify-content-center">
                     <span class="content-page__num">
                         <% if (q && pagesNum === 0) { %>
-                            <p class="content-page__no-results">No results found for<span class="content-page__no-query"><%= q %> </span>!</p>
+                            <p class="content-page__no-results">No results found for
+                                <span class="content-page__no-query"><%= q %> </span>!
+                            </p>
                         <% } else if (pagesNum > 1) {%>
 
                             <% if (previous) { %>
