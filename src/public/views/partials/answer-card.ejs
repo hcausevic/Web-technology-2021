@@ -21,4 +21,5 @@
         <span id="<%= `heart-answers-score-${data.id}` %>"><%- data.Score %></span> 
         <img id="<%= `heart-answers-${data.id}` %>" class="heart-answer" onclick="onHeartClick(event)" src="../icons/hihi.svg" alt="heart" >
     </div>
+    <div id="<%- data.id %>-error" class="alert alert-danger" role="alert" hidden></div>
 </div>

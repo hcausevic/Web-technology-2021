@@ -6,8 +6,7 @@ export const getQuestion = (req, res) => {
     const { id } = req.params;
 
     if (!Object.keys(QUESTIONS).includes(id)) {
-        //TODO; need to return error page when it gets created
-        return res.status(404).json({message: 'Not Found.'});
+        return res.status(404).render('../public/views/error.ejs', { search: false });
     }
 
     const [date, time] = new Date(QUESTIONS[id].CreationDate).toLocaleString().split(', ');

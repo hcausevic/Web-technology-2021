@@ -1,3 +1,4 @@
+
 window.onload = (event) => {
     if (localStorage.getItem('token') && localStorage.getItem('iv')) {
         auth().then(res => {
@@ -37,19 +38,19 @@ window.onload = (event) => {
     }
 };
 
-logout = () => {
+const logout = () => {
     localStorage.clear();
     window.location.replace('/login');
 }
 
-redirectToHome = () => {
+const redirectToHome = () => {
     // prevent access to login, register and new page for certain users
     if (window.location.pathname === '/login' || window.location.pathname === '/register') {
         window.location.replace('/');
     }
 }
 
-showFields = () => {
+const showFields = () => {
     document.getElementById('usernameContainer').hidden = false;
     document.getElementById('login').hidden = true;
     document.getElementById('signup').hidden = true;
@@ -57,7 +58,8 @@ showFields = () => {
     document.getElementById('logout').hidden = false;
 }
 
-hideFields = () => {
+const hideFields = () => {
+    console.log('hide')
     document.getElementById('usernameContainer').hidden = true;
     document.getElementById('login').hidden = false;
     document.getElementById('signup').hidden = false;
@@ -67,8 +69,13 @@ hideFields = () => {
 
 const onHeartClick = (event) => {
     event.stopPropagation();
+
     const [, entityModel, id] = event.target.id.split('-');
     const liked = event.target.classList.contains('question-card--liked');
+
+    const errorEl = document.getElementById(`${id}-error`);
+    errorEl.hidden = true;
+    errorEl.innerText = '';
 
     fetch('/like', {
         method: 'PUT',
@@ -94,6 +101,13 @@ const onHeartClick = (event) => {
                 scoreElement.innerText = parseInt(scoreElement.innerText) + 1;
             }
             event.target.classList.toggle('question-card--liked');
+        } else if (res.status === 401) { // unauthorized
+            errorEl.innerText = `You have to be logged in to like ${entityModel} !`;
+            errorEl.hidden = false;
+            setTimeout(() => {
+                errorEl.innerText = '';
+                errorEl.hidden = true;
+            }, 3000);
         }
     });
 };

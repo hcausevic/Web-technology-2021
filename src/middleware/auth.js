@@ -1,4 +1,3 @@
-import e from 'express';
 import { USERS } from '../index.js';
 import { decrypt } from '../utils/crypto.js';
 
@@ -15,7 +14,7 @@ export const auth = () => {
             res.userId = user[0];
             next();
         } catch (error) {
-            res.status(401).json({ message: 'Authentication failed! '});
+            res.status(401).send('Authentication failed! ');
         }
     }
 };
