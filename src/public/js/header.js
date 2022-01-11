@@ -97,3 +97,9 @@ const onHeartClick = (event) => {
         }
     });
 };
+
+const onQuestionCardClick = (event) => {
+    if (event.target.id) {
+        window.location.href = `/questions/${event.target.id}`;
+    }
+}
