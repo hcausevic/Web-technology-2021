@@ -43,6 +43,11 @@ const prepareData = () => {
 const ePath = path.join(process.cwd(), 'entities.json');
 const wvPath = path.join(process.cwd(), 'wv.json');
 
-if (!(fs.existsSync(ePath) && fs.existsSync(wvPath))) {
+const args = process.argv.slice(2);
+
+const NO_EXISTING_DATA = !(fs.existsSync(ePath) && fs.existsSync(wvPath));
+const ASKED_RELOAD = args && args[0] === '--reload' && args[1] === 'yes';
+
+if (NO_EXISTING_DATA || ASKED_RELOAD) {
     prepareData();
 }
