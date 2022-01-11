@@ -1,8 +1,5 @@
-import fs, { promises as fsAsync } from 'fs';
-import path from 'path';
 import { embeddings } from './text-process.js';
-
-const WORD_MAPPER = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'wv.json'), 'utf8'));
+import { WORD_MAPPER, ENTITIES } from '../index.js';
 const DEFAULT_THRESHOLD = 0.65;
 
 const sum = (arr) => {
@@ -38,10 +35,7 @@ const calculateCosineSimilarity = (query, lookupTable, threshold = 0) => {
 };
 
 export const getSimilarResults = async (data, query, delimiter, threshold = DEFAULT_THRESHOLD) => {
-    const lookupTableFilePath = path.join(process.cwd(), 'entities.json');
-    const lookupTable = JSON.parse(await fsAsync.readFile(lookupTableFilePath, 'utf8'));
-
-    const similarityResult = calculateCosineSimilarity(query, lookupTable, threshold);
+    const similarityResult = calculateCosineSimilarity(query, ENTITIES, threshold);
     const sorted = similarityResult.sort((a, b) => b.score - a.score);
 
     const del = sorted.length < delimiter ? sorted.length : delimiter;

@@ -1,0 +1,41 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 88vh;
+    align-items: center;
+    color: #007bff;
+    padding-top: 5%;
+}
+
+.content__question-container {
+    width: 55%;
+}
+
+.content__btn-submit {
+    float: right;
+    text-transform: uppercase;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+p {
+    color: grey;
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
+}
+
+input, textarea {
+    border-color: #007bff !important;
+}
+
+#error {
+    width: 55%;
+    font-size: 0.8rem;
+}
+
+hr {
+    width: 55%;
+}
