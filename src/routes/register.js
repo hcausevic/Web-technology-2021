@@ -27,7 +27,7 @@ export const postRegister = (req, res) => {
         password: hash(password, 'md5'),
         email
     }
-    USERS[generateUUID()] = newUser;
+    USERS[generateUUID()] = {... newUser, likedQuestions: [], likedAnswers: []};
 
     // create session token
     const token = encrypt(JSON.stringify(newUser));
