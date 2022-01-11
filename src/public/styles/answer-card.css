@@ -1,0 +1,77 @@
+.answer-card {
+    background-color: #f6f6f6;
+    margin: 0 2rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.answer-card__header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    align-items: center;
+}
+
+.answer-card__username-container,
+.answer-card__time {
+    display: flex;
+    font-style: italic;
+    color: #438BC7;
+    font-size: 0.75rem;
+    align-items: center;
+}
+
+.answer-card__username-icon {
+    background-color: #438BC7;
+    border-radius: 100%;
+    padding: 0.25rem;
+}
+
+.answer-card__username-icon > img {
+    width: 1.3rem;
+    height: 1.1rem;
+}
+
+.answer-card__username,
+.answer-card__time {
+    margin-left: 0.5rem;
+}
+
+.answer-card__body {
+    margin-left: 2.2rem;
+}
+
+.answer-card__body > ul,
+.answer-card__body > ol {
+    margin-left: 1rem;
+}
+
+.answer-card__footer-heart {
+    display: flex;
+    justify-content: flex-end;
+    color: #438BC7;
+    align-items: center;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.answer-card__footer-heart > img {
+    width: 2rem;
+    filter: brightness(0.5) opacity(0.2);
+    cursor: pointer;
+}
+
+.answer-card__footer-heart > span {
+    margin-right: 0.25rem;
+}
+
+.answer-card--liked {
+    filter: brightness(1) opacity(1) !important;
+}
+
+.answer-card__footer-heart > img:hover {
+    transition: all .3s;
+    transform: scale(1.3);
+}

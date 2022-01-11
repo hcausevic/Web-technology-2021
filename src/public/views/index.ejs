@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><%= title %> </title>
+        <title>Web Technology 2021</title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -13,17 +13,51 @@
     <body>
         <%- include('partials/header') %>
 
-        <main class="main-content">
-            Main content
-            <ul>
-                <% items.forEach((item) => { %>
-                    <li>
-                        <b><%= item.name %></b>
-                    </li>
-                <% }); %> 
-            </ul>
+        <main class="main-content-home">
+            <div class="content-wrapper-home">
+                <hr>
+                <% for(let i = 0; i < questions.length; i++) { %>
+                    <%- include('partials/question-card', {
+                        data: questions[i]
+                    }) %> 
+                <% } %>
+
+                <div class="pagination justify-content-center">
+                    <span class="content-page__num">
+                        <% if (!previous && !next) { %>
+                            <p class="content-page__no-results">No results found for<span class="content-page__no-query"><%= q %> </span>!</p>
+                        <% } else {%>
+
+                            <% if (previous) { %>
+                                <a class="btn btn-primary" href="?page=<%= previous.page %>&limit=<%= previous.limit %><%= q ? `&q=${q}` : '' %>">
+                                    Previous
+                                </a>
+                            <% } else { %>
+                                <a class="btn btn-primary disabled" href="#">Previous</a>
+                            <% } %>
+
+                            Page <input
+                                    id="page-num-input"
+                                    type="number"
+                                    class="content-page__num-input"
+                                    value="<%= previous ? previous.page + 1 : next.page - 1%>"
+                                    min=1
+                                    max=<%= pagesNum %>
+                                > / <%= pagesNum %>
+                                <% if (next) { %>
+                                    <a class="btn btn-primary" href="?page=<%= next.page %>&limit=<%= next.limit %><%= q ? `&q=${q}` : '' %>">
+                                        Next
+                                    </a>
+                                <% } else { %>
+                                    <a class="btn btn-primary disabled" href="#">Next</a>
+                                <% } %>
+                            <% } %>
+                    </span>
+                </div>
+            </div>
         </main>
         
         <%- include('partials/footer') %>
     </body>
+    <script src="../js/index.js"></script>
 </html>

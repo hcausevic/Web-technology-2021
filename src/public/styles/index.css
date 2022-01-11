@@ -10,3 +10,41 @@ body {
 .main-content {
     min-height: 88vh;
 }
+
+.main-content-home {
+    padding-top: 5vh;
+    display: grid;
+    min-height: 88vh;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1rem;
+}
+
+.content-wrapper-home {
+    grid-column: 3/9;
+}
+
+.pagination {
+    margin-bottom: 1rem;
+}
+
+.content-page__num {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.content-page__num-input {
+    margin: 0 .25rem;
+}
+
+.content-page__no-results {
+    display: flex;
+    justify-self: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.content-page__no-query {
+    margin-left: 0.5rem;
+    font-weight: 600;
+}
