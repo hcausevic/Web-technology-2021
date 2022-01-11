@@ -27,9 +27,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const pathToPublic = path.join(__dirname, 'public');
 
-const questionsFilePath = path.join(__dirname, 'database', 'questions.json');
-const answersFilePath = path.join(__dirname, 'database', 'answers.json');
-const usersFilePath = path.join(__dirname, 'database', 'users.json');
+const questionsFilePath = path.join(__dirname, 'data', 'questions.json');
+const answersFilePath = path.join(__dirname, 'data', 'answers.json');
+const usersFilePath = path.join(__dirname, 'data', 'users.json');
 const entitiesPath = path.join(process.cwd(), 'entities.json');
 const wordMapperPath = path.join(process.cwd(), 'wv.json');
 
