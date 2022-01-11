@@ -17,7 +17,7 @@ const STOP_WORDS = [
     'should', 'now'
 ];
 
-const VECTOR_LENGTH = 300;
+export const VECTOR_LENGTH = 300;
 
 const removeStopWords = (text) => {
     const words = text.split(' ');
