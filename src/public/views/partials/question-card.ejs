@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../styles/question-card.css">
 
-<div id="<%- data.id %> "class="question-card" onclick="onQuestionCardClick(event)">
+<div id="<%- data.id %> " class="question-card" onclick="onQuestionCardClick(event)">
     <div class="question-card__header">
         <div class="question-card__header-title"><%- data.Title %></div>
         <div class="question-card__header-time"><%- data.CreationDate %></div>
@@ -22,4 +22,5 @@
             <img id="<%= `heart-questions-${data.id}` %>" class="heart-question" onclick="onHeartClick(event)" src="../icons/hihi.svg" alt="heart" >
         </div>
     </div>
+    <div id="<%- data.id %>-error" class="alert alert-danger" role="alert" hidden></div>
 </div>

@@ -23,8 +23,8 @@
                 }) %> 
 
                 <form class="content__question-form" onsubmit="onPostAnswer(event)">
-                    <textarea class="form-control question-form__textarea"></textarea>
-                    <button type="submit" class="btn btn-primary question-form__button">POST ANSWER</button>
+                    <textarea id="answer-textarea" class="form-control question-form__textarea" disabled></textarea>
+                    <button id="answer-submit" type="submit" class="btn btn-primary question-form__button" disabled>POST ANSWER</button>
                 </form>
 
                 <% for (let i = 0; i < answers.length; i++) { %>

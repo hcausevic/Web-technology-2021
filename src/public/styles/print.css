@@ -1,5 +1,8 @@
 @media print {
-    .footer, .header {
+    .footer, .header, .content__question-form, hr {
         visibility: hidden;
+    }
+    blockquote {
+        border: none;
     }
 }
