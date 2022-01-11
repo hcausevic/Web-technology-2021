@@ -26,7 +26,7 @@
     border: none;
     border-radius: 0 1rem 1rem 0;
     outline: none;
-    color: #007bff;
+    color: black;
 }
 
 .header__search-input:focus {

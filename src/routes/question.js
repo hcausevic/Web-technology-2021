@@ -1,45 +1,40 @@
-import fs from 'fs';
-import path from 'path';
+import { QUESTIONS, ANSWERS, USERS } from '../index.js';
 
 export const getQuestion = (req, res) => {
     const { id } = req.params;
-    const filePath = path.join('src', 'database', 'questions.json');
-    let questions = {};
-    try {
-        questions = JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' }));
-    } catch (err) {
-        return res.status(500).json({ message: 'Server error.' });
-    }
 
-
-    if (!Object.keys(questions).includes(id)) {
+    if (!Object.keys(QUESTIONS).includes(id)) {
         //TODO; need to return error page when it gets created
         return res.status(404).json({ message: 'Not Found.' });
     }
 
-    const question = { id, ...questions[id] };
-    const answersFilePath = path.join('src', 'database', 'answers.json');
-    let answers = {};
-    try {
-        answers = JSON.parse(fs.readFileSync(answersFilePath, { encoding: 'utf-8' }));
-    } catch (err) {
-        return res.status(500).json({ message: 'Server error.' });
-    }
+    const [date, time] = new Date(QUESTIONS[id].CreationDate).toLocaleString().split(', ');
+    const username = USERS[QUESTIONS[id].OwnerUserId]?.username || `User with id: ${QUESTIONS[id].OwnerUserId}`;
+    const question = {
+        id,
+        ...QUESTIONS[id],
+        CreationDate: `${time}, ${date}`,
+        username,
+    };
 
     const relevantAnswers = [];
 
-    for (const [key, value] of Object.entries(answers)) {
+    for (const [key, value] of Object.entries(ANSWERS).reverse()) {
         if (value.ParentId == id) {
+            const [answerDate, answerTime] = new Date(value.CreationDate).toLocaleString().split(', ');
+            const answerUsername = USERS[value.OwnerUserId]?.username || `User with id: ${value.OwnerUserId}`
             relevantAnswers.push({
                 id: key,
-                ...value
+                ...value,
+                CreationDate: `${answerTime}, ${answerDate}`,
+                username: answerUsername,
             });
+
         }
     }
 
     const data = {
-        title: 'Web Technology 2021',
-        search: true,
+        search: false,
         username: '',
         question,
         answers: relevantAnswers,
