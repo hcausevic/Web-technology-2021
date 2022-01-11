@@ -4,8 +4,8 @@
   "description": "Web technology project 2021",
   "main": "index.js",
   "scripts": {
-    "prestart": "node src/background.js",
-    "start": "node src/index.js",
+    "prestart": "node src/background.js --reload $npm_config_reload",
+    "start": "node src/index.js --reload npm_config_reload$",
     "start-dev": "nodemon src/index.js"
   },
   "type": "module",
