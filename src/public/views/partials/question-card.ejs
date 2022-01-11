@@ -19,7 +19,8 @@
         </div>
         <div class="question-card__footer-heart" >
             <span id="<%= `heart-questions-score-${data.id}` %>"><%- data.Score %></span>
-            <img id="<%= `heart-questions-${data.id}` %>" class="heart-question" onclick="onHeartClick(event)" src="../icons/hihi.svg" alt="heart" >
+            <img id="<%= `heart-questions-${data.id}` %>" class="heart-question" onclick="onHeartClick(event)"
+                 src="../icons/heart.svg" alt="heart" >
         </div>
     </div>
     <div id="<%- data.id %>-error" class="alert alert-danger" role="alert" hidden></div>

@@ -31,9 +31,18 @@ const createWordMapper = (modelFile, wordMapperPath) => {
     fs.writeFileSync(wordMapperPath, JSON.stringify(wordMapper));
 }
 
-const dataPath = path.join(process.cwd(), 'src', 'data', 'questions.json');
-createCorpus(dataPath, 'corpus.txt');
-w2v.word2vec('corpus.txt', 'word_vectors.txt', { size: VECTOR_LENGTH, iter: 10 }, () => {
-    createWordMapper(path.join(process.cwd(), 'word_vectors.txt'), 'wv.json');
-    createEmbeddings(dataPath, 'wv.json', 'entities.json');
-});
+const prepareData = () => {
+    const dataPath = path.join(process.cwd(), 'src', 'data', 'questions.json');
+    createCorpus(dataPath, 'corpus.txt');
+    w2v.word2vec('corpus.txt', 'word_vectors.txt', { size: VECTOR_LENGTH, iter: 10 }, () => {
+        createWordMapper(path.join(process.cwd(), 'word_vectors.txt'), 'wv.json');
+        createEmbeddings(dataPath, 'wv.json', 'entities.json');
+    });
+}
+
+const ePath = path.join(process.cwd(), 'entities.json');
+const wvPath = path.join(process.cwd(), 'wv.json');
+
+if (!(fs.existsSync(ePath) && fs.existsSync(wvPath))) {
+    prepareData();
+}

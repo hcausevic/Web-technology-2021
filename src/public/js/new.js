@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('token') && localStorage.getItem('iv')) {
-        auth().then(res => {
+        getUsername().then(res => {
             if (res.status !== 200) {
                 window.location.replace('/');
             }
@@ -17,7 +17,7 @@ const onQuestionPost = (event) => {
     const successEl = document.getElementById('success');
     errorEl.hidden = true;
     errorEl.innerText = '';
-    fetch('/new', {
+    fetch('/questions/new', {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',

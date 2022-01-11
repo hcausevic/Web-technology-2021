@@ -1,35 +1,31 @@
 import express from 'express';
 import ejs from 'ejs';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import path  from 'path';
 
 const COLOR_BLUE = '\x1b[34m%s\x1b[0m';
 
 // import routes
 import { getHome } from './routes/home.js';
 import { getRegister, postRegister } from './routes/register.js';
-import { getUsername } from './routes/authenticate.js';
+import { getUsername } from './routes/user.js';
 import { getLogin, postLogin } from './routes/login.js';
 import { getSearch } from './routes/search.js';
 import { paginate } from './middleware/paginate.js';
 import { auth } from './middleware/auth.js';
-import { getLike, putLike } from './routes/like.js';
+import { getLikes, putLike } from './routes/like.js';
 import { postAnswer } from './routes/answer.js';
 import { getNewQuestionForm, getQuestion, postQuestion } from './routes/question.js';
-import { getAbout } from "./routes/about.js";
-import { getError } from "./routes/error.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getAbout } from './routes/about.js';
+import { getError } from './routes/error.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
-const pathToPublic = path.join(__dirname, 'public');
+const pathToPublic = path.join(path.join(process.cwd(), 'src', 'public'));
 
-const questionsFilePath = path.join(__dirname, 'data', 'questions.json');
-const answersFilePath = path.join(__dirname, 'data', 'answers.json');
-const usersFilePath = path.join(__dirname, 'data', 'users.json');
+const questionsFilePath = path.join(path.join(process.cwd(), 'src', 'data', 'questions.json'));
+const answersFilePath = path.join(path.join(process.cwd(), 'src', 'data', 'answers.json'));
+const usersFilePath = path.join(path.join(process.cwd(), 'src', 'data', 'users.json'));
 const entitiesPath = path.join(process.cwd(), 'entities.json');
 const wordMapperPath = path.join(process.cwd(), 'wv.json');
 
@@ -49,16 +45,16 @@ app.set('view engine', 'ejs');
 app.get('/', paginate(QUESTIONS), getHome);
 app.get('/register', getRegister);
 app.post('/register', postRegister);
-app.post('/user/me', getUsername);
+app.get('/user/me', auth(), getUsername);
 app.get('/login', getLogin);
 app.post('/login', postLogin);
+app.get('/questions/new', getNewQuestionForm);
+app.post('/questions/new', auth(), postQuestion);
 app.get('/questions/:id', getQuestion);
 app.put('/like', auth(), putLike);
-app.get('/like', auth(), getLike);
+app.get('/likes', auth(), getLikes);
 app.get('/search', getSearch);
 app.post('/answer', auth(), postAnswer);
-app.get('/new', getNewQuestionForm);
-app.post('/new', auth(), postQuestion);
 app.get('/about', getAbout);
 app.get('*', getError);
 

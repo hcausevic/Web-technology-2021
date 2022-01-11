@@ -8,7 +8,7 @@ export const auth = () => {
             const { username } = JSON.parse(decrypt(token));
             const user = Object.entries(USERS).find(([_, value]) => value.username === username);
             if (!user) {
-                throw new Error('User not found!');
+                res.status(401).send('Authentication failed! ');
             }
 
             res.userId = user[0];

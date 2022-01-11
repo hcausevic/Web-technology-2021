@@ -75,7 +75,7 @@
     text-decoration: none;
 }
 
-#usernameContainer {
+#username-container {
     display: flex;
     align-items: center;
 }
