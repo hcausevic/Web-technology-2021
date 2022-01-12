@@ -65,12 +65,14 @@ const hideFields = () => {
 const onHeartClick = (event) => {
     event.stopPropagation();
 
-    const [, entityModel, id] = event.target.id.split('-');
+    const [, entityModel, id] = event.target.id.split('_');
     const liked = event.target.classList.contains('question-card--liked');
 
     const errorEl = document.getElementById(`${id}-error`);
-    errorEl.hidden = true;
-    errorEl.innerText = '';
+    if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.innerText = '';
+    }
 
     fetch('/like', {
         method: 'PUT',
@@ -89,7 +91,7 @@ const onHeartClick = (event) => {
         })
     }).then(res => {
         if (res.status === 200) {
-            const scoreElement = document.getElementById(`heart-${entityModel}-score-${id}`);
+            const scoreElement = document.getElementById(`heart_${entityModel}_score_${id}`);
             if (liked) {
                 scoreElement.innerText = String(Number(scoreElement.innerText) - 1);
             } else {

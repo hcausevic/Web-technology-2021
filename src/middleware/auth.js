@@ -8,13 +8,13 @@ export const auth = () => {
             const { username } = JSON.parse(decrypt(token));
             const user = Object.entries(USERS).find(([_, value]) => value.username === username);
             if (!user) {
-                res.status(401).send('Authentication failed! ');
+                return res.status(401).send('Authentication failed! ');
             }
 
             res.userId = user[0];
             next();
         } catch (error) {
-            res.status(401).send('Authentication failed! ');
+            return res.status(401).send('Authentication failed! ');
         }
     }
 };

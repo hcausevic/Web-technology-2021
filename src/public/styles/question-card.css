@@ -16,6 +16,7 @@
 }
 
 .question-card__header {
+    pointer-events: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,6 +45,7 @@ img {
 .question-card__footer {
     display: flex;
     justify-content: space-between;
+    pointer-events: none;
 }
 
 .question-card__username-container {
@@ -79,6 +81,7 @@ img {
     width: 2rem;
     filter: brightness(0.5) opacity(0.2);
     cursor: pointer;
+    pointer-events: initial;
 }
 
 .question-card__footer-heart > span {

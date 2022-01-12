@@ -21,7 +21,7 @@ export const decrypt = (hash, algorithm = alg, secretKey = sk, encoding = enc) =
 };
 
 export const generateUUID = () => {
-    return crypto.randomBytes(16).toString('base64')
+    return crypto.randomUUID();
 }
 
 export const hash = (text, algorithm = alg, encoding = enc) => {

@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(res => {
         res.json().then(({ questions }) => {
             for (const element of relevantElements) {
-                const [, , id] = element.id.split('-');
+                const [, , id] = element.id.split('_');
                 if (questions.includes(id)) {
-                    const el = document.getElementById(`heart-questions-${id}`);
+                    const el = document.getElementById(`heart_questions_${id}`);
                     el.classList.toggle('question-card--liked');
                 }
             }
