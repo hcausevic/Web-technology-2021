@@ -63,14 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
         res.json().then(({ questions, answers }) => {
             const relevantAnswers = document.getElementsByClassName('heart-answer');
             if (questions.includes(id)) {
-                const el = document.getElementById(`heart-questions-${id}`);
+                const el = document.getElementById(`heart_questions_${id}`);
                 el.classList.toggle('question-card--liked');
             }
 
             for (const answer of relevantAnswers) {
                 const [, , id] = answer.id.split('-');
                 if (answers.includes(id)) {
-                    const el = document.getElementById(`heart-answers-${id}`);
+                    const el = document.getElementById(`heart_answers_${id}`);
                     el.classList.toggle('answer-card--liked');
                 }
             }
